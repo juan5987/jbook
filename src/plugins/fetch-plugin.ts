@@ -1,6 +1,7 @@
 import * as esbuild from 'esbuild-wasm';
 import axios from 'axios';
 import localforage from 'localforage';
+import { JsxEmit } from 'typescript';
 
 const fileCache = localforage.createInstance({
   name: 'filecache',
@@ -27,10 +28,20 @@ export const fetchPlugin = (inputCode: string) => {
           return cachedResult;
         }
         const { data, request } = await axios.get(args.path);
+        const fileType = args.path.match(/.css$/) ? 'css' : 'jsx';
+
+        const contents =
+          fileType === 'css'
+            ? `
+        const style = document.createElement('style');
+        style.innerText = '${data}';
+        document.head.appendChild(style);
+        `
+            : data;
 
         const result: esbuild.OnLoadResult = {
           loader: 'jsx',
-          contents: data,
+          contents,
           resolveDir: new URL('./', request.responseURL).pathname,
         };
         //else store response in cache
