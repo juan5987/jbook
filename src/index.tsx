@@ -1,8 +1,9 @@
 import * as esbuild from 'esbuild-wasm';
 import { useState, useEffect, useRef } from 'react';
-import ReactDOMClient from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
+import CodeEditor from './components/code-editor';
 
 const App = () => {
   const ref = useRef<any>();
@@ -64,6 +65,7 @@ const App = () => {
 
   return (
     <div>
+      <CodeEditor />
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -81,7 +83,4 @@ const App = () => {
   );
 };
 
-const container = document.getElementById('root') as HTMLDivElement;
-const root = ReactDOMClient.createRoot(container);
-
-root.render(<App />);
+ReactDOM.render(<App />, document.getElementById('root'));
