@@ -1,7 +1,6 @@
 import * as esbuild from 'esbuild-wasm';
 import axios from 'axios';
 import localforage from 'localforage';
-import { JsxEmit } from 'typescript';
 
 const fileCache = localforage.createInstance({
   name: 'filecache',
@@ -52,6 +51,7 @@ export const fetchPlugin = (inputCode: string) => {
         await fileCache.setItem(args.path, result);
         return result;
       });
+
       build.onLoad({ filter: /.*/ }, async (args: any) => {
         const { data, request } = await axios.get(args.path);
 
