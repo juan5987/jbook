@@ -57,7 +57,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
           automaticLayout: true,
         }}
         language='javascript'
-        height='500px'
+        height='100%'
       />
     </div>
   );
