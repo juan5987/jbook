@@ -5,7 +5,7 @@ interface PreviewProps {
   code: string;
 }
 const html = `
-<html>
+<html style="background-color: white">
   <head></head>
   <body>
     <div id="root"></div>
