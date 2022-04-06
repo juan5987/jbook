@@ -1,10 +1,11 @@
 import { useRef, useEffect } from 'react';
+import './preview.sass';
 
 interface PreviewProps {
   code: string;
 }
 const html = `
-<html>
+<html style="background-color: white">
   <head></head>
   <body>
     <div id="root"></div>
@@ -32,12 +33,14 @@ const Preview: React.FC<PreviewProps> = ({ code }) => {
   }, [code]);
 
   return (
-    <iframe
-      title='code preview'
-      ref={iframe}
-      sandbox='allow-scripts'
-      srcDoc={html}
-    />
+    <div className='iframe-wrapper'>
+      <iframe
+        title='code preview'
+        ref={iframe}
+        sandbox='allow-scripts'
+        srcDoc={html}
+      />
+    </div>
   );
 };
 
